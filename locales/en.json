@@ -51,7 +51,7 @@
   "email.reset.footnote": "Someone requested a password reset on smallbites using your email address (%s). If this wasn't you, ignore this email. If it was you, click on the link to reset your password. This link will expire in an hour.",
   "email.verify.title": "Verify your email",
   "email.verify.subtitle": "Your verification link is:",
-  "email.verify.footnote": "Someone registered an account on smallbites using your email address (%s) as %s. If this wasn't you, ignore this email. If it was you, click on the link to verify your account. This code will expire in an hour.",
+  "email.verify.footnote": "Someone registered an account on smallbites using your email address (%s) as %s. If this wasn't you, ignore this email. If it was you, click on the link to verify your account. This link will expire in an hour.",
   "pagination.first": "First",
   "pagination.last.counted": "Last (%s)"
 }
