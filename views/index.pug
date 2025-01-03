@@ -1,7 +1,7 @@
 extends layout.pug
 
 block head
-  title home - smallbites
+  title= __('title.home')
   style.
     .cards {
       display: flex;
@@ -27,14 +27,13 @@ block head
     }
 
 block content
-  h1= __('title.welcome')
-  p choose a random recipe below, or look for many more with the link above
-  // p= JSON.stringify(foods)
+  h1= __('home.title')
+  p= __('home.subtitle')
   .cards
     each food in foods
       a(href=`/food/${food.id}`)
         p= food.title
         .c
-          span Prep: #{ food.prep_time }
-          span Cook: #{ food.cook_time }
-          span Calories: #{ food.calories.toFixed(0) }
+          span #{ __('food.prep_time') }: #{ food.prep_time }
+          span #{ __('food.cook_time') }: #{ food.cook_time }
+          span #{ __('food.calories') }: #{ food.calories.toFixed(0) }

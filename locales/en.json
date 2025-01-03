@@ -1,3 +1,10 @@
 {
-  "title.welcome": "Welcome to smallbites!"
+  "title.home": "Home - Smallbites",
+  "nav.home": "Home",
+  
+  "home.title": "Welcome to Smallbites!",
+  "home.subtitle": "Choose a random recipe below, or look for many more with the links above",
+  "food.prep_time": "Prep",
+  "food.cook_time": "Cook",
+  "food.calories": "Calories"
 }
