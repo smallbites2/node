@@ -1,7 +1,8 @@
 {
   "scripts": {
     "dev": "rimraf dist && tsc && node dist/index.js",
-    "build": "tsc"
+    "build": "tsc",
+    "prepare": "husky install"
   },
   "dependencies": {
     "argon2": "^0.41.1",
@@ -36,7 +37,12 @@
     "@types/pg": "^8.11.10",
     "@types/pug": "^2.0.10",
     "drizzle-kit": "^0.30.1",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.3.0",
     "prettier": "^3.4.2",
     "rimraf": "^6.0.1"
+  },
+  "lint-staged": {
+    "*.{ts,js,json,pug,css,md}": "prettier --write"
   }
 }
