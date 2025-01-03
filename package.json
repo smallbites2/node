@@ -1,6 +1,7 @@
 {
   "scripts": {
-    "dev": "rimraf dist && tsc && node dist/index.js"
+    "dev": "rimraf dist && tsc && node dist/index.js",
+    "build": "tsc"
   },
   "dependencies": {
     "argon2": "^0.41.1",
