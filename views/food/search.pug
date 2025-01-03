@@ -54,9 +54,9 @@ block content
           img(src=`/assets/food/${food.image}?size=128`)
           p= food.title
           .c
-            span #{__('food.prep_time')}: #{ food.prep_time }
-            span #{__('food.cook_time')}: #{ food.cook_time }
-            span #{__('food.calories')}: #{ food.calories.toFixed(0) }
+            span #{ __('food.prep_time') }: #{ food.prep_time }
+            span #{ __('food.cook_time') }: #{ food.cook_time }
+            span #{ __('food.calories') }: #{ food.calories.toFixed(0) }
 
   if total > 1
     .pages

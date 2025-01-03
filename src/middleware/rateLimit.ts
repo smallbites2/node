@@ -4,7 +4,11 @@ import { sql } from 'drizzle-orm';
 
 import type { Request, Response, NextFunction } from 'express';
 
-export const ipRateLimiter = (action: string, limit: number, windowMs: number): ((req: Request, res: Response, next: NextFunction) => Promise<void>) => {
+export const ipRateLimiter = (
+  action: string,
+  limit: number,
+  windowMs: number
+): ((req: Request, res: Response, next: NextFunction) => Promise<void>) => {
   return async (req, res, next) => {
     const ip = req.ip;
     if (!ip) {
@@ -14,18 +18,26 @@ export const ipRateLimiter = (action: string, limit: number, windowMs: number): 
     const now = Date.now();
     const windowStart = now - windowMs;
 
-    const existing = await db.select().from(ip_rate_limits).where(sql`ip = ${ip} AND action = ${action} AND timestamp > ${windowStart}`).execute();
+    const existing = await db
+      .select()
+      .from(ip_rate_limits)
+      .where(sql`ip = ${ip} AND action = ${action} AND timestamp > ${windowStart}`)
+      .execute();
     if (existing.length >= limit) {
       res.status(429).send('Too many requests');
       return;
     }
-    
+
     await db.insert(ip_rate_limits).values({ ip, action }).execute();
     next();
   };
 };
 
-export const userRateLimiter = (action: string, limit: number, windowMs: number): ((req: Request, res: Response, next: NextFunction) => Promise<void>) => {
+export const userRateLimiter = (
+  action: string,
+  limit: number,
+  windowMs: number
+): ((req: Request, res: Response, next: NextFunction) => Promise<void>) => {
   return async (req, res, next) => {
     const user = req.user;
     if (!user) {
@@ -35,18 +47,26 @@ export const userRateLimiter = (action: string, limit: number, windowMs: number)
     const now = Date.now();
     const windowStart = now - windowMs;
 
-    const existing = await db.select().from(user_rate_limits).where(sql`user_id = ${user.id} AND action = ${action} AND timestamp > ${windowStart}`).execute();
+    const existing = await db
+      .select()
+      .from(user_rate_limits)
+      .where(sql`user_id = ${user.id} AND action = ${action} AND timestamp > ${windowStart}`)
+      .execute();
     if (existing.length >= limit) {
       res.status(429).send('Too many requests');
       return;
     }
-    
+
     await db.insert(user_rate_limits).values({ user_id: user.id, action }).execute();
     next();
   };
 };
 
-export const hybridRateLimiter = (action: string, limit: number, windowMs: number): ((req: Request, res: Response, next: NextFunction) => Promise<void>) => {
+export const hybridRateLimiter = (
+  action: string,
+  limit: number,
+  windowMs: number
+): ((req: Request, res: Response, next: NextFunction) => Promise<void>) => {
   const ipLimiter = ipRateLimiter(action, limit, windowMs);
   const userLimiter = userRateLimiter(action, limit, windowMs);
 
