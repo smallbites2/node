@@ -114,6 +114,6 @@ for (const file of readdirSync(join(__dirname, 'routes'))) {
   app.use(router.default);
 }
 
-app.listen(process.env.port, () => {
-  console.log(`[log] Listening on port ${process.env.port}`);
+app.listen(process.env.PORT, () => {
+  console.log(`[log] Listening on port ${process.env.PORT}`);
 });
