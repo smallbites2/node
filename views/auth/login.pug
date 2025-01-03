@@ -1,7 +1,7 @@
 extends ../layout.pug
 
 block head
-  title smallbites - login
+  title= __('title.auth.login')
   style
     include ../styles/form.css
     if error
@@ -15,6 +15,6 @@ block content
       p.banner-red= error
     if success
       p.banner-green= success
-    input#username(type='text', name='username', placeholder='Username')
-    input#password(type='password', name='password', placeholder='Password')
-    input(type='submit', value='Login')
+    input#username(type='text', name='username', placeholder=__('auth.login.username'))
+    input#password(type='password', name='password', placeholder=__('auth.login.password'))
+    input(type='submit', value=__('auth.login.submit'))

@@ -1,5 +1,8 @@
 extends ../layout.pug
 
+block head
+  title= __('title.mail.verify-invalid')
+
 block content
   h1 Verify your email
   p Your email verification link is invalid or has expired. Please request a new one.

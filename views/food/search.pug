@@ -1,7 +1,7 @@
 extends ../layout.pug
 
 block head
-  title recipes - smallbites
+  title= __('title.food.search')
   style.
     .cards {
       display: flex;
@@ -37,16 +37,15 @@ block head
     }
 
 block content
-  h1 Recipes
-
+  h1= __('food.search.title')
   form(action='/food', method='get')
-    input(type='text', name='q', value=query, placeholder='Search')
+    input(type='text', name='q', value=query, placeholder=__('search.placeholder'))
     select#cat(name='cat', value=cat)
-      option(value='') All
+      option(value='')= __('categories.all')
       each cat in categories
         option(value=cat.id) #{ cat.name }
 
-    button(type='submit') Search
+    button(type='submit')= __('food.search.button')
 
   if results.length
     .cards
@@ -55,21 +54,21 @@ block content
           img(src=`/assets/food/${food.image}?size=128`)
           p= food.title
           .c
-            span Prep: #{ food.prep_time }
-            span Cook: #{ food.cook_time }
-            span Calories: #{ food.calories.toFixed(0) }
+            span #{__('food.prep_time')}: #{ food.prep_time }
+            span #{__('food.cook_time')}: #{ food.cook_time }
+            span #{__('food.calories')}: #{ food.calories.toFixed(0) }
 
   if total > 1
     .pages
       if page > 2
-        a(href=`/food?q=${q || ""}&cat=${category || ""}&p=${1}`) First
+        a(href=`/food?q=${q || ""}&cat=${category || ""}&p=${1}`)= __('pagination.first')
       if page > 1
         a(href=`/food?q=${q || ""}&cat=${category || ""}&p=${page - 1}`) #{ page - 1 }
       p #{ page }
       if page < total
         a(href=`/food?q=${q || ""}&cat=${category || ""}&p=${page + 1}`) #{ page + 1 }
         if page < (total - 1)
-          a(href=`/food?q=${q || ""}&cat=${category || ""}&p=${total}`) Last (#{ total })
+          a(href=`/food?q=${q || ""}&cat=${category || ""}&p=${total}`)= __('pagination.last.counted', total)
 
   else
-    p No recipes found.
+    p= __('food.search.none-found')

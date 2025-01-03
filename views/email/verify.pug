@@ -2,8 +2,8 @@ html
   head
 
   body
-    h1 smallbites - verification
-    h2 Your verification link is: #{ code }
-    p Someone registered an account on smallbites using your email address (#{ email }) as #{ displayname }.
-    p If this wasn't you, ignore this email. If it was you, click on the link to verify your account.
-    p This code will expire in an hour.
+    h1= __('email.verify.title')
+    h2= __('email.verify.subtitle')
+      |
+      a(href=code)= code
+    p= __('email.verify.footnote', email, displayname)

@@ -1,11 +1,11 @@
 extends ../layout.pug
 
 block head
-  title 400 - smallbites
+  title= __('title.error.400')
 
 block content
-  h1 400 - bad request
+  h1= __('error.400.title')
   if message
     p= message
   else
-    p Your request is invalid. Please try going back and trying again.
+    p= __('error.400.message')

@@ -5,17 +5,17 @@ block head
     include styles/table.css
 
 block content
-  h1 Users
+  h1= __('users.title')
 
   form(action='/users', method='get')
-    input(type='text', name='q', value=query, placeholder='Search')
-    button(type='submit') Search
+    input(type='text', name='q', value=query, placeholder=__('users.search'))
+    button(type='submit')= __('users.search')
 
   table
     thead
       tr
-        th Id
-        th Name
+        th= __('users.id')
+        th= __('users.name')
     tbody
       each user in users
         tr

@@ -55,4 +55,4 @@ export const hybridRateLimiter = (action: string, limit: number, windowMs: numbe
       await userLimiter(req, res, next);
     });
   };
-}
+};

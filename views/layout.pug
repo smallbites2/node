@@ -39,14 +39,14 @@ html
 
   body
     nav
-      a(href='/') Home
-      a(href='/food') Recipes
-      a(href='/food?cat=0') Cocktail Recipes
+      a(href='/')= __('nav.home')
+      a(href='/food')= __('nav.recipes')
+      a(href='/food?cat=0')= __('nav.cocktail')
       if user
-        a Welcome, #{ user.display_name || user.username }!
+        a= __('nav.welcome', user.display_name || user.username)
       else
-        a(href='/login') Login
-        a(href='/register') Register
+        a(href='/login')= __('nav.login')
+        a(href='/register')= __('nav.register')
 
     .content
       block content

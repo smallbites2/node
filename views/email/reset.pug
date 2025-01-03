@@ -2,10 +2,8 @@ html
   head
 
   body
-    h1 smallbites - password reset
-    h2 Your reset link is:
+    h1= __('email.reset.title')
+    h2= __('email.reset.subtitle')
       |
       a(href=link)= link
-    p Someone requested a password reset on smallbites using your email address (#{ email }).
-    p If this wasn't you, ignore this email. If it was you, click on the link to reset your password.
-    p This link will expire in an hour.
+    p= __('email.reset.footnote', email)

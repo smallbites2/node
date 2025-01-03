@@ -1,8 +1,8 @@
 extends ../layout.pug
 
 block head
-  title 401 - smallbites
+  title= __('title.error.401')
 
 block content
-  h1 401 - unauthorized
-  p Please log in to access this page.
+  h1= __('error.401.title')
+  p= __('error.401.message')
