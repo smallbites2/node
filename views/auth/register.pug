@@ -1,0 +1,20 @@
+extends ../layout.pug
+
+block head
+  title smallbites - register
+  style
+    include ../styles/form.css
+    if error
+      include ../styles/banners/red.css
+
+block content
+  form(action='/register', method='POST')
+    if error
+      p.banner-red= error
+    if success
+      p.banner-green= success
+    input#username(type='text', name='username', placeholder='Username', minlength='3')
+    input#email(type='email', name='email', placeholder='Email')
+    input#password(type='password', name='password', placeholder='Password', minlength='8')
+    input#password2(type='password', name='password2', placeholder='Confirm Password')
+    input(type='submit', value='Login')

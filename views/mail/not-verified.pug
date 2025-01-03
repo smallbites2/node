@@ -1,0 +1,11 @@
+extends ../layout.pug
+
+block head
+  title E-Mail not verified - smallbites
+
+block content
+  h1 E-Mail not verified
+  p Please verify your e-mail address (#{ user.email }) by clicking the link in the e-mail we sent you.
+  p If you didn't receive the e-mail, you can request a new one by clicking the button below.
+  form(action='/email/resend', method='post')
+    button(type='submit') Resend verification e-mail

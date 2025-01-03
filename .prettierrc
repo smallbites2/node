@@ -1,0 +1,10 @@
+{
+  "tabWidth": 2,
+  "plugins": ["@prettier/plugin-pug"],
+  "semi": true,
+  "singleQuote": true,
+  "trailingComma": "none",
+  "printWidth": 120,
+  "arrowParens": "avoid",
+  "bracketSpacing": true
+}

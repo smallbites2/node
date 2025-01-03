@@ -1,0 +1,7 @@
+.banner-red {
+  background-color: rgb(197, 36, 36);
+  border: 0.07em solid rgb(197, 36, 36);
+  padding: 0.5em 1em;
+  color: white;
+  border-radius: 0.5em;
+}

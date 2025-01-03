@@ -1,0 +1,57 @@
+extends ../layout.pug
+
+mixin comment(comment)
+  p #{ comment.display_name || comment.username } - ##{ comment.id } - #{ comment.edited_at || comment.created_at }
+  p.con #{ comment.content }
+  if user
+    a Reply
+  if comment.children && comment.children.length
+    .replies
+      each reply in comment.children
+        +comment(reply)
+
+block head
+  title #{ food.title } - smallbites
+  style.
+    h3 {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .replies {
+      margin-left: 1.5rem;
+    }
+
+block content
+  h1 #{ food.title }
+  a(href=`/users/${food.author.id}`) by #{ food.author.display_name || food.author.username }
+
+  h3
+    span Prep time: #{ food.prep_time }
+    span Cook time: #{ food.cook_time }
+    span Calories: #{ food.calories.toFixed(0) }
+
+  h3
+    span Yields: #{ food.yields } 
+
+  p #{ food.description }
+
+  h4 Ingredients
+  ul
+    each ingredient in food.ingredients
+      li= ingredient
+
+  h4 Instructions
+  ul
+    each instruction in food.instructions_list
+      li= instruction
+
+  h4 Comments
+  if food.comments.length
+    each comment in food.comments
+      .com
+        +comment(comment)
+
+    pre= JSON.stringify(food.comments, null, 2)
+  else
+    p No comments yet

@@ -1,0 +1,75 @@
+extends ../layout.pug
+
+block head
+  title recipes - smallbites
+  style.
+    .cards {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+    }
+
+    .cards > a {
+      border: 1px solid;
+      width: 25%;
+      border-radius: 5px;
+      padding: 10px;
+      margin: 10px;
+      text-align: center;
+      cursor: pointer;
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .c {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .pages {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .pages > p {
+      margin: 0;
+    }
+
+block content
+  h1 Recipes
+
+  form(action='/food', method='get')
+    input(type='text', name='q', value=query, placeholder='Search')
+    select#cat(name='cat', value=cat)
+      option(value='') All
+      each cat in categories
+        option(value=cat.id) #{ cat.name }
+
+    button(type='submit') Search
+
+  if results.length
+    .cards
+      each food in results
+        a(href=`/food/${food.id}`)
+          img(src=`/assets/food/${food.image}?size=128`)
+          p= food.title
+          .c
+            span Prep: #{ food.prep_time }
+            span Cook: #{ food.cook_time }
+            span Calories: #{ food.calories.toFixed(0) }
+
+  if total > 1
+    .pages
+      if page > 2
+        a(href=`/food?q=${q || ""}&cat=${category || ""}&p=${1}`) First
+      if page > 1
+        a(href=`/food?q=${q || ""}&cat=${category || ""}&p=${page - 1}`) #{ page - 1 }
+      p #{ page }
+      if page < total
+        a(href=`/food?q=${q || ""}&cat=${category || ""}&p=${page + 1}`) #{ page + 1 }
+        if page < (total - 1)
+          a(href=`/food?q=${q || ""}&cat=${category || ""}&p=${total}`) Last (#{ total })
+
+  else
+    p No recipes found.

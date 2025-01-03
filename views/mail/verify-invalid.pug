@@ -1,0 +1,7 @@
+extends ../layout.pug
+
+block content
+  h1 Verify your email
+  p Your email verification link is invalid or has expired. Please request a new one.
+  form(action='/email/resend', method='post')
+    button(type='submit') Resend verification e-mail

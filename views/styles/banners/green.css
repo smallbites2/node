@@ -1,0 +1,7 @@
+.banner-green {
+  background-color: rgb(47, 177, 42);
+  border: 0.07em solid rgb(47, 177, 42);
+  padding: 0.5em 1em;
+  color: white;
+  border-radius: 0.5em;
+}

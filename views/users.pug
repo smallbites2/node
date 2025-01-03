@@ -1,0 +1,23 @@
+extends layout.pug
+
+block head
+  style
+    include styles/table.css
+
+block content
+  h1 Users
+
+  form(action='/users', method='get')
+    input(type='text', name='q', value=query, placeholder='Search')
+    button(type='submit') Search
+
+  table
+    thead
+      tr
+        th Id
+        th Name
+    tbody
+      each user in users
+        tr
+          td= user.id
+          td= user.display_name ? user.display_name : user.username

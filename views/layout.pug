@@ -1,0 +1,52 @@
+html
+  head
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    style.
+      html {
+        color-scheme: light dark;
+        font-family: Tahoma, Verdana, Arial, sans-serif;
+      }
+
+      .content {
+        height: 100%;
+        max-width: 60em;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 0 1rem;
+      }
+
+      body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 0;
+        padding: 0;
+      }
+
+      nav {
+        width: 100vw;
+        margin-top: 1rem;
+        display: flex;
+        justify-content: center;
+      }
+
+      nav > * {
+        padding: 0 1rem;
+      }
+    block head
+
+  body
+    nav
+      a(href='/') Home
+      a(href='/food') Recipes
+      a(href='/food?cat=0') Cocktail Recipes
+      if user
+        a Welcome, #{ user.display_name || user.username }!
+      else
+        a(href='/login') Login
+        a(href='/register') Register
+
+    .content
+      block content

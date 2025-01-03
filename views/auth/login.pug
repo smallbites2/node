@@ -1,0 +1,20 @@
+extends ../layout.pug
+
+block head
+  title smallbites - login
+  style
+    include ../styles/form.css
+    if error
+      include ../styles/banners/red.css
+    if success
+      include ../styles/banners/green.css
+
+block content
+  form(action='/login', method='POST')
+    if error
+      p.banner-red= error
+    if success
+      p.banner-green= success
+    input#username(type='text', name='username', placeholder='Username')
+    input#password(type='password', name='password', placeholder='Password')
+    input(type='submit', value='Login')
