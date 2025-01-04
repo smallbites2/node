@@ -21,7 +21,7 @@ export const ipRateLimiter = (
     const existing = await db
       .select()
       .from(ip_rate_limits)
-      .where(sql`ip = ${ip} AND action = ${action} AND timestamp > ${windowStart}`)
+      .where(sql`ip = ${ip} AND action = ${action} AND at > to_timestamp(${windowStart})`)
       .execute();
     if (existing.length >= limit) {
       res.status(429).send('Too many requests');
@@ -50,7 +50,7 @@ export const userRateLimiter = (
     const existing = await db
       .select()
       .from(user_rate_limits)
-      .where(sql`user_id = ${user.id} AND action = ${action} AND timestamp > ${windowStart}`)
+      .where(sql`user_id = ${user.id} AND action = ${action} AND at > to_timestamp(${windowStart})`)
       .execute();
     if (existing.length >= limit) {
       res.status(429).send('Too many requests');
