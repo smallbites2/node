@@ -29,5 +29,17 @@
     "users.search": "寻找",
     "users.name": "名字",
     "search.placeholder": "寻找",
-    "categories.all": "全部"
+    "categories.all": "全部",
+    "users.id": "ID号码",
+    "home.subtitle": "从下面随便选出食谱，或者从上面的链接找出更多",
+    "home.title": "欢迎您来到 Smallbites!",
+    "food.prep_time": "准备",
+    "food.cook_time": "煮",
+    "food.calories": "卡",
+    "food.instructions": "指示",
+    "food.ingredients": "材料",
+    "food.yields": "分量: %s",
+    "food.search.title": "食谱",
+    "food.search.button": "寻找",
+    "food.search.none-found": "找不到食谱"
 }
