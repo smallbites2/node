@@ -6,9 +6,6 @@
   },
   "dependencies": {
     "argon2": "^0.41.1",
-    "axios": "^1.7.9",
-    "better-sqlite3": "^11.7.0",
-    "clean-css": "^5.3.3",
     "cookie-parser": "^1.4.7",
     "dotenv": "^16.4.7",
     "drizzle-orm": "^0.38.3",
@@ -26,7 +23,6 @@
   },
   "devDependencies": {
     "@prettier/plugin-pug": "^3.2.0",
-    "@types/clean-css": "^4.2.11",
     "@types/cookie-parser": "^1.4.8",
     "@types/express": "^5.0.0",
     "@types/gm": "^1.25.4",
