@@ -1,7 +1,7 @@
 {
   "scripts": {
-    "dev": "rimraf dist && tsc && node dist/index.js",
-    "build": "tsc",
+    "dev": "rimraf dist && tsc --noEmit && node build.mjs && node dist/index.js",
+    "build": "node build.mjs",
     "prepare": "husky install"
   },
   "dependencies": {
@@ -34,6 +34,7 @@
     "@types/pug": "^2.0.10",
     "drizzle-kit": "^0.30.1",
     "esbuild": "^0.24.2",
+    "git-describe": "^4.1.1",
     "husky": "^9.1.7",
     "lint-staged": "^15.3.0",
     "prettier": "^3.4.2",
