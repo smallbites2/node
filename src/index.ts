@@ -5,7 +5,6 @@ import express from 'express';
 import cookieParser from 'cookie-parser';
 import htmlMinify from 'html-minifier';
 import pug from 'pug';
-import { readdirSync } from 'node:fs';
 import { join } from 'node:path';
 import { I18n } from 'i18n';
 
@@ -14,6 +13,13 @@ import { users as usersTable } from './db/schema/users';
 import { tokens } from './db/schema/tokens';
 import { sql } from 'drizzle-orm';
 import app from './app';
+
+import assetsRouter from './routes/assets';
+import authRouter from './routes/auth';
+import emailRouter from './routes/email';
+import foodRouter from './routes/food';
+import rootRouter from './routes/root';
+import usersRouter from './routes/users';
 
 const i18n = new I18n({
   locales: ['en', 'fr', 'pl'],
@@ -109,10 +115,12 @@ app.use(async (req, res, next) => {
   next();
 });
 
-for (const file of readdirSync(join(__dirname, 'routes'))) {
-  const router = require(join(__dirname, 'routes', file));
-  app.use(router.default);
-}
+app.use(assetsRouter);
+app.use(authRouter);
+app.use(emailRouter);
+app.use(foodRouter);
+app.use(rootRouter);
+app.use(usersRouter);
 
 app.listen(process.env.PORT, () => {
   console.log(`[log] Listening on port ${process.env.PORT}`);
