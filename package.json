@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "dev": "rimraf dist && tsc --noEmit && node build.mjs && node dist/index.js",
+    "dev": "rimraf dist && tsc --noEmit && node build.mjs && node --enable-source-maps dist/index.js",
     "build": "node build.mjs",
     "prepare": "husky install"
   },
