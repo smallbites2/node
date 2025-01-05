@@ -20,16 +20,22 @@ import emailRouter from './routes/email';
 import foodRouter from './routes/food';
 import rootRouter from './routes/root';
 import usersRouter from './routes/users';
+import { readdirSync } from 'fs';
+
+const localesDir = join(__dirname, '..', 'locales');
+const localeFiles = readdirSync(localesDir);
+const locales = localeFiles.map(file => file.replace('.json', ''));
+
+const fallbacks = locales.reduce((acc: { [key: string]: string }, locale) => {
+  acc[`${locale}-*`] = locale;
+  return acc;
+}, {});
 
 const i18n = new I18n({
-  locales: ['en', 'fr', 'pl'],
-  fallbacks: {
-    'en-*': 'en',
-    'fr-*': 'fr',
-    'pl-*': 'pl'
-  },
+  locales,
+  fallbacks,
   defaultLocale: 'en',
-  directory: join(__dirname, '..', 'locales'),
+  directory: localesDir,
   retryInDefaultLocale: true,
   updateFiles: false,
   autoReload: true,
