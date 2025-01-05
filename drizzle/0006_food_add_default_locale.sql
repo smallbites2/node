@@ -1,0 +1,1 @@
+ALTER TABLE "food" ADD COLUMN "default_locale" varchar(5) DEFAULT 'en_US';

@@ -11,7 +11,7 @@ mixin comment(comment)
         +comment(reply)
 
 block head
-  title= __('title.food.details', food.title)
+  title= __('title.food.details', food.translation.title)
   style.
     h3 {
       display: flex;
@@ -23,8 +23,10 @@ block head
     }
 
 block content
-  h1 #{ food.title }
+  h1 #{ food.translation.title }
   a(href=`/users/${food.author.id}`) by #{ food.author.display_name || food.author.username }
+  if food.author.id !== food.translationAuthor.id
+    a(href=`/users/${food.translationAuthor.id}`) translated by #{ food.translationAuthor.display_name || food.translationAuthor.username }
 
   h3
     span #{ __('food.prep_time') }: #{ food.prep_time }
@@ -32,18 +34,18 @@ block content
     span #{ __('food.calories') }: #{ food.calories.toFixed(0) }
 
   h3
-    span= __('food.yields', food.yields)
+    span= __('food.yields', food.translation.yields)
 
-  p #{ food.description }
+  p #{ food.translation.description }
 
   h4= __('food.ingredients')
   ul
-    each ingredient in food.ingredients
+    each ingredient in food.translation.ingredients
       li= ingredient
 
   h4= __('food.instructions')
   ul
-    each instruction in food.instructions_list
+    each instruction in food.translation.instructions_list
       li= instruction
 
   h4= __('comment.title')

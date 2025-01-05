@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { foodComments } from '../db/schema/food_comments';
-import { food } from '../db/schema/food';
+import { food, foodTranslations } from '../db/schema/food';
 import { db } from '../database';
 import { minsToHuman } from '../util/human';
 import { sql } from 'drizzle-orm';
@@ -30,10 +30,21 @@ router.get('/food', async (req, res) => {
   let result;
 
   const baseQuery = db
-    .select()
+    .selectDistinctOn([food.id])
     .from(food)
     .leftJoin(users, sql`users.id = food.author`)
-    .leftJoin(categories, sql`categories.id = food.category`);
+    .leftJoin(categories, sql`categories.id = food.category`)
+    .leftJoin(foodTranslations, sql`food.id = food_translations.food_id`)
+    .orderBy(
+      food.id,
+      sql`
+      CASE 
+        WHEN food_translations.locale = ${req.locale} THEN 1
+        WHEN food_translations.locale = food.default_locale THEN 2
+        ELSE 3
+      END
+    `
+    );
 
   if (category) {
     baseQuery.where(sql`category = ${cat![0].id}`);
@@ -41,11 +52,11 @@ router.get('/food', async (req, res) => {
 
   if (q) {
     baseQuery.where(
-      sql`(
-      setweight(to_tsvector('english', title), 'A') ||
-      setweight(to_tsvector('english', description), 'B') ||
-      setweight(to_tsvector('english', yields), 'C')
-    ) @@ websearch_to_tsquery('english', ${q})`
+      sql`food_translations.title &@~ ${q} OR
+      food_translations.description &@~ ${q} OR
+      food_translations.ingredients &@~ ${q} OR
+      food_translations.instructions_list &@~ ${q} OR
+      food_translations.yields &@~ ${q}`
     );
   }
 
@@ -65,7 +76,8 @@ router.get('/food', async (req, res) => {
       cook_time: minsToHuman(r.food.cook_time),
       total_time: minsToHuman(r.food.prep_time + r.food.cook_time),
       author: r.users,
-      category: r.categories
+      category: r.categories,
+      translation: r.food_translations
     });
   }
 
@@ -87,12 +99,31 @@ router.get('/food/:id', async (req, res) => {
     .select()
     .from(food)
     .leftJoin(users, sql`food.author = users.id`)
+    .leftJoin(
+      foodTranslations,
+      sql`food.id = food_translations.food_id AND food.default_locale = food_translations.locale`
+    )
+    .innerJoin(categories, sql`food.category = categories.id`)
     .where(sql`food.id = ${id}`)
     .execute();
   if (f.length === 0) {
-    res.status(404).render('404.pug');
+    res.status(404).render('error/404.pug');
     return;
   }
+
+  const localisedFood = await db
+    .select()
+    .from(foodTranslations)
+    .where(sql`food_id = ${id} AND locale = ${req.locale}`)
+    .execute();
+
+  const localizationAuthor = await db
+    .select()
+    .from(users)
+    .where(
+      sql`id = ${localisedFood.length > 0 ? localisedFood[0].translation_author : f[0].food_translations?.translation_author}`
+    )
+    .execute();
 
   /*const c = await db.execute(sql`
     with recursive comment_tree as (
@@ -287,11 +318,14 @@ router.get('/food/:id', async (req, res) => {
 
   res.render('food/details.pug', {
     food: {
-      ...f[0].food,
+      category: f[0].categories,
       prep_time: minsToHuman(f[0].food.prep_time),
       cook_time: minsToHuman(f[0].food.cook_time),
       total_time: minsToHuman(f[0].food.prep_time + f[0].food.cook_time),
+      calories: f[0].food.calories,
       author: f[0].users,
+      translation: localisedFood.length > 0 ? localisedFood[0] : f[0].food_translations,
+      translationAuthor: localizationAuthor[0],
       comments: c.rows
     }
   });

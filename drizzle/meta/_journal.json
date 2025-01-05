@@ -36,6 +36,27 @@
       "when": 1735872098494,
       "tag": "0004_cron_indexes",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1736098109033,
+      "tag": "0005_food_regions_and_translations",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1736099858221,
+      "tag": "0006_food_add_default_locale",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1736102312744,
+      "tag": "0007_oops",
+      "breakpoints": true
     }
   ]
 }

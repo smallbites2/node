@@ -52,13 +52,13 @@ block content
       each food in results
         a(href=`/food/${food.id}`)
           img(src=`/assets/food/${food.image}?size=128`)
-          p= food.title
+          p= food.translation.title
           .c
             span #{ __('food.prep_time') }: #{ food.prep_time }
             span #{ __('food.cook_time') }: #{ food.cook_time }
             span #{ __('food.calories') }: #{ food.calories.toFixed(0) }
 
-  if total > 1
+  if total > 0
     .pages
       if page > 2
         a(href=`/food?q=${q || ""}&cat=${category || ""}&p=${1}`)= __('pagination.first')
