@@ -30,20 +30,4 @@ router.get('/favicon.ico', (req, res) => {
   res.end();
 });
 
-router.get('/email/reset', (req, res) => {
-  res.render('email/reset.pug', {
-    email: 'a@a.a',
-    displayname: 'Konfucjusz',
-    link: 'https://www.youtube.com/watch?v=E4WlUXrJgy4'
-  });
-});
-
-router.get('/email/verify', (req, res) => {
-  res.render('email/verify.pug', {
-    email: 'a@a.a',
-    displayname: 'Spartakus',
-    code: '2137'
-  });
-});
-
 export default router;
